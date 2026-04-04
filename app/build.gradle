@@ -38,22 +38,22 @@ android {
     signingConfigs {
         release {
             def keystorePropertiesFile = rootProject.file("keystore/keystore.properties")
+            def keystoreProperties = new Properties()
             if (keystorePropertiesFile.exists()) {
-                def keystoreProperties = new Properties()
                 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-                def keystoreFilePath = System.getenv("RELEASE_STORE_FILE") ?: keystoreProperties.getProperty('storeFile')
-                def keystorePassword = System.getenv("RELEASE_STORE_PASSWORD") ?: keystoreProperties.getProperty('storePassword')
-                def keyAliasName = System.getenv("RELEASE_KEY_ALIAS") ?: keystoreProperties.getProperty('keyAlias')
-                def keyPasswordValue = System.getenv("RELEASE_KEY_PASSWORD") ?: keystoreProperties.getProperty('keyPassword')
-                def keystoreFile = rootProject.file(keystoreFilePath)
-                if (keystoreFile.exists() && keystorePassword && keyAliasName && keyPasswordValue) {
-                    storeFile keystoreFile
-                    storePassword keystorePassword
-                    keyAlias keyAliasName
-                    keyPassword keyPasswordValue
-                    v1SigningEnabled true
-                    v2SigningEnabled true
-                }
+            }
+            def keystoreFilePath = System.getenv("RELEASE_STORE_FILE") ?: keystoreProperties.getProperty('storeFile')
+            def keystorePassword = System.getenv("RELEASE_STORE_PASSWORD") ?: keystoreProperties.getProperty('storePassword')
+            def keyAliasName = System.getenv("RELEASE_KEY_ALIAS") ?: keystoreProperties.getProperty('keyAlias')
+            def keyPasswordValue = System.getenv("RELEASE_KEY_PASSWORD") ?: keystoreProperties.getProperty('keyPassword')
+            def keystoreFile = rootProject.file(keystoreFilePath)
+            if (keystoreFile.exists() && keystorePassword && keyAliasName && keyPasswordValue) {
+                storeFile keystoreFile
+                storePassword keystorePassword
+                keyAlias keyAliasName
+                keyPassword keyPasswordValue
+                v1SigningEnabled true
+                v2SigningEnabled true
             }
         }
     }
