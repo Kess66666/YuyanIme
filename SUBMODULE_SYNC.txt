@@ -1,0 +1,2 @@
+# Submodule Sync Marker
+# This file is used to trigger a new commit that updates the yuyansdk submodule reference.
